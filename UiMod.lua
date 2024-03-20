@@ -70,6 +70,7 @@ function library:AddConnection(connection, name, callback)
 end
 
 function library:Unload()
+    pcall(function()
     for _, c in next, self.connections do
         c:Disconnect()
     end
@@ -82,11 +83,12 @@ function library:Unload()
     end
     for _, o in next, self.options do
         if o.type == "toggle" then
-            coroutine.resume(coroutine.create(o.SetState, o))
+            task.spawn(function() pcall(coroutine.resume, coroutine.create(o.SetState, o)) end)
         end
     end
     library = nil
     getgenv().library = nil
+    end)
 end
 
 function library:LoadConfig(config)
