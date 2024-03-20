@@ -2596,8 +2596,10 @@ function library:Init()
         self.main.Size = UDim2.new(0, 16 + ((#tab.columns < 2 and 2 or #tab.columns) * 239), 0, 600)
         self.currentTab = tab
         tab.button.TextColor3 = library.flags["Menu Accent Color"]
-        self.tabHighlight:TweenPosition(UDim2.new(0, tab.button.Position.X.Offset, 0, 50), "Out", "Quad", 0.2, true)
-        self.tabHighlight:TweenSize(UDim2.new(0, tab.button.AbsoluteSize.X, 0, -1), "Out", "Quad", 0.1, true)
+        --self.tabHighlight:TweenPosition(UDim2.new(0, tab.button.Position.X.Offset, 0, 50), "Out", "Quad", 0.2, true)
+        --self.tabHighlight:TweenSize(UDim2.new(0, tab.button.AbsoluteSize.X, 0, -1), "Out", "Quad", 0.1, true)
+	  game:GetService("TweenService"):Create(self.tabHighlight, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, tab.button.Position.X.Offset, 0, 50)}):Play()
+	  game:GetService("TweenService"):Create(self.tabHighlight, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, tab.button.AbsoluteSize.X, 0, -1)}):Play()
         for _, column in next, tab.columns do
             column.main.Visible = true
         end
